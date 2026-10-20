@@ -34,14 +34,14 @@ You do **not** need to install Python, Node.js, or PostgreSQL on your computer. 
 
 ### 1. Open the project folder
 
-If this is your GitHub repository, clone it and move into the folder that contains `compose.yaml`:
+Clone this repository and move into the folder that contains `compose.yaml`:
 
 ```sh
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-cd YOUR-REPOSITORY
+git clone https://github.com/Abdelrahmandaghash/Saleor-Sea-of-Legends.git
+cd Saleor-Sea-of-Legends
 ```
 
-Replace the two capitalized placeholders with your GitHub account and repository names. If you already downloaded the project, open a terminal in the folder that contains `compose.yaml`.
+If you already downloaded the project, open a terminal in the folder that contains `compose.yaml`.
 
 ### 2. Make sure Docker is running
 
