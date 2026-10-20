@@ -1,10 +1,17 @@
-# Saleor: Sea of Legends
+<p align="center">
+  <img src="docs/screenshots/cards-market.png" alt="Screenshot of the Sea of Legends pirate collectibles shop and its six illustrated cards" width="100%" />
+</p>
 
-An interactive pirate game-collectibles shop set in a ship-filled Caribbean harbor. Choose an island to explore trading cards, pirate figures, and ship models. Demo orders earn doubloons you can use to level up your collection.
+<p align="center">
+  <img src="frontend/saleor-pirate-mark.svg" alt="Saleor pirate compass logo" width="88" height="88" />
+</p>
 
-![Illustrated Caribbean pirate harbor for the Sea of Legends storefront](frontend/images/caribbean-pirate-harbor.svg)
+<h1 align="center">Saleor: Sea of Legends</h1>
 
-![Custom Saleor pirate compass mark](frontend/saleor-pirate-mark.svg)
+<p align="center">
+  An interactive pirate collectibles shop in a ship-filled Caribbean harbor.<br />
+  A Docker-first learning project with trading cards, pirate figures, and ships.
+</p>
 
 > **About this project:** This is an independent learning demo branded with the Saleor name. It is not the official Saleor commerce platform. This guide centers on the Docker setup. You can build, run, and understand the containers without knowing how the shop's application code works.
 
@@ -61,9 +68,9 @@ docker compose ps
 
 The database and API should become **healthy**. Then open:
 
-- **Shop:** <http://localhost:8081>
-- **API health check:** <http://localhost:5000/health>
-- **Product list:** <http://localhost:5000/api/products>
+- **Shop:** <http://localhost:8082>
+- **API health check:** <http://localhost:5001/health>
+- **Product list:** <http://localhost:5001/api/products>
 
 To follow startup logs, run `docker compose logs -f`. Press `Ctrl+C` to stop watching logs; the services keep running.
 
@@ -73,7 +80,7 @@ Think of the setup this way: Dockerfiles are build recipes, images are the packa
 
 ```mermaid
 flowchart LR
-  Browser[Your browser<br/>localhost:8081] -->|web page| Web[frontend<br/>Nginx]
+  Browser[Your browser<br/>localhost:8082] -->|web page| Web[frontend<br/>Nginx]
   Web -->|/api requests| API[backend<br/>Flask + Python]
   API -->|db:5432| DB[(db<br/>PostgreSQL)]
   DB --- Data[(postgres_data<br/>saved database files)]
@@ -102,6 +109,7 @@ The browser sees the frontend. Nginx sends API requests to the backend over Dock
 | [`frontend/nginx.conf`](frontend/nginx.conf) | Tells Nginx to serve the web page and forward `/api/` requests to the backend service. |
 | [`frontend/.dockerignore`](frontend/.dockerignore) | Keeps Git metadata, logs, and local Node packages out of the frontend image build context. |
 | `frontend/images/` | Holds the harbor scene and six original pirate collectible illustrations. They are local SVG files copied into the Nginx image and served as website assets. |
+| `docs/screenshots/` | Contains fresh screenshots of the harbor landing page, full storefront, and card market. |
 | [`frontend/index.html`](frontend/index.html), [`frontend/styles.css`](frontend/styles.css), [`frontend/app.js`](frontend/app.js) | Describe the harbor page, its visual design, card market interactions, shopping chest, and browser-saved level upgrades. |
 | [`backend/app.py`](backend/app.py) | Seeds the pirate cards and collectibles, exposes the API, checks stock, and records demo orders in PostgreSQL. |
 | [`.gitignore`](.gitignore) | Tells Git to ignore local secrets, Python caches, and other machine-specific files. It does not configure Docker. |
@@ -119,16 +127,16 @@ The top-level `services:` section defines three containers. Compose automaticall
 | `healthcheck.interval`, `timeout`, `retries` | Check every five seconds, allow each check five seconds, and try up to twelve times before marking the database unhealthy. |
 | `backend.build.context: ./backend` | Build the API image using the `backend` folder as its build context. The Dockerfile and files it copies must be available in that folder. |
 | `backend.environment.DATABASE_URL` | Give Flask the database connection address. The hostname `db` is the Compose service name, and `5432` is PostgreSQL's internal container port. The password uses the same Compose variable/default as the database. |
-| `ports: "5000:5000"` | Publish backend port `5000` on your computer as port `5000` in the container. The browser can open the API directly for the health check. |
+| `ports: "${BACKEND_HOST_PORT:-5001}:5000"` | Publish backend container port `5000` on your computer. Host port `5001` is the default; set `BACKEND_HOST_PORT` in `.env` to choose another free host port. |
 | `depends_on` with `condition: service_healthy` | Wait for the database health check before starting the backend; wait for the backend health check before starting the frontend. This waits for readiness, not just for a container process to exist. |
 | `backend.healthcheck.test` | Ask the API's `/health` URL from inside its container. It succeeds only when the API can respond and reach the database. |
 | Backend health timing | Wait 15 seconds before the first API check, then check every 10 seconds, allow 5 seconds per check, and retry up to five times. |
 | `frontend.build.context: ./frontend` | Build the website image from the `frontend` folder using its Dockerfile. |
-| `ports: "8081:80"` | Publish Nginx's container port `80` as port `8081` on your computer. That is why the shop is at `localhost:8081`. |
+| `ports: "${FRONTEND_HOST_PORT:-8082}:80"` | Publish Nginx's container port `80` as port `8082` on your computer. That is why the shop is at `localhost:8082`; set `FRONTEND_HOST_PORT` in `.env` to choose another free host port. |
 | `restart: unless-stopped` | Restart a service if it stops unexpectedly, unless you explicitly stopped it. This applies to all three services. |
 | Top-level `volumes: postgres_data:` | Ask Docker to create and manage a named volume for PostgreSQL. Compose supplies the volume; the database image writes the actual data into it. |
 
-PostgreSQL has **no `ports` mapping**, so it is not directly published to your computer. The API reaches it through the private Compose network. `5000:5000` and `8081:80` are written as `computer-port:container-port`.
+PostgreSQL has **no `ports` mapping**, so it is not directly published to your computer. The API reaches it through the private Compose network. The frontend and backend mappings are written as `computer-port:container-port`; the left side can be changed with the host-port variables above.
 
 ### What is inside each Dockerfile?
 
@@ -170,7 +178,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 The `frontend/nginx.conf` file tells that web server what to do:
 
-- `listen 80` accepts traffic on Nginx's container port 80; Compose maps that to your computer's port 8081.
+- `listen 80` accepts traffic on Nginx's container port 80; Compose maps that to your computer's port 8082 by default.
 - `server_name localhost` gives this local site a server name.
 - `location /api/` matches API URLs. `proxy_pass http://backend:5000` forwards them to the Compose service named `backend`; Docker's private DNS resolves that name to the right container.
 - The `proxy_set_header` lines pass the original host, client address, and protocol along with the API request.
@@ -208,4 +216,4 @@ After changing the site or Docker files, use `docker compose up --build -d` so t
 - The harbor and collectible illustrations are local SVG files stored with the frontend. The display font is loaded from Google Fonts; the HTML, styling, API, and database run locally in Docker.
 - Checkout is only a demo: no payment is processed and no parcel is shipped. This project also has no production authentication, TLS, backups, or deployment pipeline.
 
-If a service does not start, check `docker compose ps` and `docker compose logs --tail=100`. If the shop loads without images or fonts, check the internet connection. If port `8081` or `5000` is already in use, stop the other program using it or change the left-hand (computer) port in `compose.yaml`.
+If a service does not start, check `docker compose ps` and `docker compose logs --tail=100`. If the shop loads without images or fonts, check the internet connection. If port `8082` or `5001` is already in use, set `FRONTEND_HOST_PORT` or `BACKEND_HOST_PORT` in `.env` to a free port.
