@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Saleor pirate compass mark</title>
+  <circle cx="32" cy="32" r="29.5" fill="#0A202C" stroke="#E4BC67" stroke-width="2"/>
+  <circle cx="32" cy="32" r="25" stroke="#79B5B4" stroke-opacity=".52"/>
+  <path d="m32 8 2.2 9.1L32 15l-2.2 2.1L32 8ZM56 32l-9.1 2.2 2.1-2.2-2.1-2.2L56 32ZM32 56l-2.2-9.1L32 49l2.2-2.1L32 56ZM8 32l9.1-2.2-2.1 2.2 2.1 2.2L8 32Z" fill="#E4BC67"/>
+  <path d="M15 48 48 15m1 33L15 15" stroke="#E4BC67" stroke-width="2.3" stroke-linecap="round"/>
+  <path d="M18.2 46.4c-1.6 2.7-4.4 4.5-7.4 4.8 1.2-3.4 4.4-5.4 7.8-5.5m27.2-27.2c2.7-1.6 4.5-4.4 4.8-7.4-3.4 1.2-5.4 4.4-5.5 7.8M45.8 46.4c1.6 2.7 4.4 4.5 7.4 4.8-1.2-3.4-4.4-5.4-7.8-5.5M18.2 17.6c-2.7-1.6-4.5-4.4-4.8-7.4 3.4 1.2 5.4 4.4 5.5 7.8" fill="#E4BC67" stroke="#E4BC67" stroke-linejoin="round"/>
+  <path d="M20 25c0-5.2 5.2-9.4 12-9.4s12 4.2 12 9.4v4.2l-3.2-2.5-3.3 2.5-3.3-2.5-3.3 2.5-3.4-2.5-3.3 2.5-4.2-2.6V25Z" fill="#B9533F" stroke="#F1DFAF" stroke-width="1.2" stroke-linejoin="round"/>
+  <path d="m23.2 24.3 4.5-2.6 4.3 2.5 4.2-2.5 4.6 2.6" stroke="#F4D38A" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M20.3 27.6c.2-1.1 1.1-1.8 2.3-1.8h18.8c1.3 0 2.2.9 2.3 2.1l-.9 13.2c-.2 3-2.7 5.3-5.7 5.3H27c-3 0-5.5-2.3-5.7-5.3l-1-13.5Z" fill="#F3E8C9" stroke="#0A202C" stroke-width="1.5"/>
+  <path d="m24.1 32.3 4.1-2.5 3.7 2.6-3.1 4.4-4.7-1.1v-3.4Zm15.8 0-4.1-2.5-3.7 2.6 3.1 4.4 4.7-1.1v-3.4Z" fill="#0A202C"/>
+  <path d="M29.2 40.2h5.6l-2.8 3.3-2.8-3.3Z" fill="#B9533F"/>
+  <path d="m23 45.2-4.6 3.5m22.6-3.5 4.6 3.5" stroke="#0A202C" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

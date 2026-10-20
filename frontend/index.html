@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06131d" />
+    <meta
+      name="description"
+      content="Enter the Caribbean Sea of Legends. Collect pirate trading cards, level up your crew, and command a fleet of ships."
+    />
+    <title>Saleor — Sea of Legends</title>
+    <link rel="icon" type="image/svg+xml" href="/saleor-pirate-mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Pirata+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="announcement">
+      <p>⚓ THE CARIBBEAN IS CALLING</p>
+      <span>Build your crew. Claim your legend.</span>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Saleor home">
+          <span class="brand-mark" aria-hidden="true"><img src="/saleor-pirate-mark.svg" alt="" /></span>
+          <span class="brand-wordmark">SALEOR<span class="wordmark-star" aria-hidden="true">✦</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#products">Card market</a>
+          <a href="#products" data-nav-category="Trading Cards">Trading cards</a>
+          <a href="#products" data-nav-category="Ship Models">Ship models</a>
+          <a href="#about">Captain's log</a>
+        </nav>
+        <div class="header-actions">
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+            <input id="product-search" type="search" placeholder="Find a card or ship" aria-label="Search pirate cards and collectibles" />
+          </label>
+          <div class="doubloon-wallet" aria-label="0 doubloons" title="Doubloons earned from demo orders">
+            <span aria-hidden="true">✦</span><strong id="doubloon-count">0</strong><small>DBL</small>
+          </div>
+          <button class="cart-button" id="open-cart" type="button" aria-label="Open treasure chest, 0 items">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 12H4L5 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg>
+            <span class="cart-button-label">Chest</span>
+            <span class="cart-count" id="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Caribbean Sea · Sector 01</span>
+          <h1>Enter the<br /><em>Sea of Legends.</em></h1>
+          <p>Ships on the horizon. Pirates in every port. Choose a cove, discover a deck of legendary cards, then build a crew worthy of the Caribbean.</p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#products">BOARD THE FLEET <span aria-hidden="true">↘</span></a>
+            <button class="ghost-link" id="find-relic" type="button">✦ Spin the compass</button>
+          </div>
+          <div class="hero-note">
+            <div class="avatar-stack" aria-hidden="true"><span>☠</span><span>✦</span><span>⚓</span></div>
+            <span>Choose a landing <i></i> Claim your first card</span>
+          </div>
+        </div>
+        <div class="hero-art" role="group" aria-label="Explore the Caribbean harbor">
+          <div class="hero-image"></div>
+          <div class="sea-coordinates">18° 27′ N <span>✦</span> 66° 06′ W</div>
+          <div class="sea-compass" aria-hidden="true"><span>N</span><i>✦</i><span>S</span></div>
+          <button class="harbor-marker marker-cove" type="button" data-harbor-category="Trading Cards"><span class="marker-signal">01</span><span><strong>Captain's Cove</strong><small>Trading cards · browse market</small></span><b aria-hidden="true">↗</b></button>
+          <button class="harbor-marker marker-tortuga" type="button" data-harbor-category="Pirate Figures"><span class="marker-signal">02</span><span><strong>Tortuga Port</strong><small>Pirate figures · crew up</small></span><b aria-hidden="true">↗</b></button>
+          <button class="harbor-marker marker-fleet" type="button" data-harbor-category="Ship Models"><span class="marker-signal">03</span><span><strong>Blackwater Fleet</strong><small>Ship models · set sail</small></span><b aria-hidden="true">↗</b></button>
+          <div class="hero-caption"><span>THE CARIBBEAN ARCHIPELAGO</span><span>OPEN SEA · NO SAFE PORT</span></div>
+        </div>
+      </section>
+
+      <section class="collection container" id="products">
+        <div class="collection-heading">
+          <div>
+            <span class="eyebrow">Captain's Cove · Legendary market</span>
+            <h2>Deal the cards.<br /><em>Rule the sea.</em></h2>
+          </div>
+          <p>Collect pirate captains, cursed ships, and creatures from the deep. Every card can gain levels as your legend grows.</p>
+        </div>
+
+        <div class="collection-toolbar">
+          <div class="category-list" id="category-list" aria-label="Filter products by category"></div>
+          <span class="product-result-count" id="product-result-count" aria-live="polite"></span>
+        </div>
+
+        <div id="status-message" class="status-message" role="status" aria-live="polite"></div>
+        <section id="products-grid" class="product-grid" aria-label="Pirate cards and collectibles" aria-live="polite"></section>
+      </section>
+
+      <section class="values-section" id="about">
+        <div class="container values-inner">
+          <span class="eyebrow">Captain's log · Rules of the sea</span>
+          <h2>Collect. Upgrade.<br />Become a <em>legend.</em></h2>
+          <div class="values-grid">
+            <article><span class="value-number">01</span><h3>Choose your landing</h3><p>Tap a harbor on the map or deal yourself a random find from the card market.</p></article>
+            <article><span class="value-number">02</span><h3>Build your collection</h3><p>Collect captain cards, pirate figures, sea monsters, and ships for your fleet.</p></article>
+            <article><span class="value-number">03</span><h3>Level up your legend</h3><p>Place a demo order to earn doubloons, then spend them to upgrade your cards.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><img src="/saleor-pirate-mark.svg" alt="" /></span><span class="brand-wordmark">SALEOR<span class="wordmark-star" aria-hidden="true">✦</span></span></a>
+        <p>Loot well. Sail far. Tell the tale.</p>
+        <span>© 2026 Saleor Trading Co. · Demo shop</span>
+      </div>
+    </footer>
+
+    <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title">
+      <div class="cart-panel">
+        <div class="cart-header">
+          <div><span class="eyebrow">Your plunder</span><h2 id="cart-title">Treasure chest <span id="cart-title-count">(0)</span></h2></div>
+          <button class="icon-button" id="close-cart" type="button" aria-label="Close treasure chest"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="cart-content" id="cart-content"></div>
+        <div class="cart-footer" id="cart-footer"></div>
+      </div>
+    </dialog>
+
+    <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+      <form class="checkout-form" id="checkout-form">
+        <div class="checkout-heading">
+          <div><span class="eyebrow">Last port before the high seas</span><h2 id="checkout-title">Ship your treasure</h2></div>
+          <button class="icon-button" id="close-checkout" type="button" aria-label="Close checkout"><span aria-hidden="true">×</span></button>
+        </div>
+        <p class="checkout-demo-note">Demo checkout only. No payment is taken and no real shipment will be sent.</p>
+        <label for="checkout-name">Full name</label>
+        <input id="checkout-name" name="name" autocomplete="name" maxlength="100" required />
+        <label for="checkout-email">Email address</label>
+        <input id="checkout-email" name="email" type="email" autocomplete="email" maxlength="254" required />
+        <label for="checkout-address">Shipping address</label>
+        <textarea id="checkout-address" name="address" autocomplete="street-address" maxlength="300" rows="3" required></textarea>
+        <p class="checkout-error" id="checkout-error" role="alert"></p>
+        <button class="checkout-button" id="place-order" type="submit">Place demo order</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
